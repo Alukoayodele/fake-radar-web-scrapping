@@ -35,7 +35,7 @@ async function start() {
     }
     const termsList = getTermsAndConditionList(lang.toUpperCase());
     console.log(termsList, ".....>");
-    if (termsList.length === 0 || null) {
+    if (!termsList || null) {
       console.log("Language not supported");
       process.exit(1);
     }
@@ -58,11 +58,7 @@ async function start() {
     }
     let legalPagePath = [];
     filteredList.forEach((list) => {
-      if (!pattern.test(list.attribute)) {
-        legalPagePath.push(url + list.attribute);
-      } else {
-        legalPagePath.push(list.attribute);
-      }
+      !pattern.test(list.attribute) ? legalPagePath.push(url + list.attribute) : legalPagePath.push(list.attribute)
     });
     console.log(legalPagePath.join(","));
 
